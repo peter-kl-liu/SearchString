@@ -1,0 +1,365 @@
+When word is empty:
+- Searching
+-   ruler:     0
+-              0
+-   fromText: "A"
+-   word:     ""
+-   partial match table: []
+-   expect pos:  "18446744073709551615"
+-   actual pos:  "18446744073709551615"
+-   fromText indices history: []
+
+
+When from is empty:
+- Searching
+-   ruler:     
+-              
+-   fromText: ""
+-   word:     "W"
+-   partial match table: [0]
+-   expect pos:  "18446744073709551615"
+-   actual pos:  "18446744073709551615"
+-   fromText indices history: []
+
+
+When both are empty:
+- Searching
+-   ruler:     
+-              
+-   fromText: ""
+-   word:     ""
+-   partial match table: []
+-   expect pos:  "18446744073709551615"
+-   actual pos:  "18446744073709551615"
+-   fromText indices history: []
+
+
+Found when char appear at all positions:
+- Searching
+-   ruler:     0   
+-              0123
+-   fromText: "AAAA"
+-   word:     "A"
+-   partial match table: [0]
+-   expect pos:  "0"
+-   actual pos:  "0"
+-   fromText indices history: [0]
+-   Step #  1 compare word[  0]('A') with fromText[  0]('A') 
+
+
+Found when char appear at middle:
+- Searching
+-   ruler:     0   
+-              0123
+-   fromText: "BABB"
+-   word:     "A"
+-   partial match table: [0]
+-   expect pos:  "1"
+-   actual pos:  "1"
+-   fromText indices history: [0,1]
+-   Step #  1 compare word[  0]('A') with fromText[  0]('B') X
+-   Step #  2 compare word[  0]('A') with fromText[  1]('A') 
+
+
+Found when char appear at end:
+- Searching
+-   ruler:     0   
+-              0123
+-   fromText: "BBBA"
+-   word:     "A"
+-   partial match table: [0]
+-   expect pos:  "3"
+-   actual pos:  "3"
+-   fromText indices history: [0,1,2,3]
+-   Step #  1 compare word[  0]('A') with fromText[  0]('B') X
+-   Step #  2 compare word[  0]('A') with fromText[  1]('B') X
+-   Step #  3 compare word[  0]('A') with fromText[  2]('B') X
+-   Step #  4 compare word[  0]('A') with fromText[  3]('A') 
+
+
+Single char not found:
+- Searching
+-   ruler:     0   
+-              0123
+-   fromText: "BCDE"
+-   word:     "A"
+-   partial match table: [0]
+-   expect pos:  "18446744073709551615"
+-   actual pos:  "18446744073709551615"
+-   fromText indices history: [0,1,2,3]
+-   Step #  1 compare word[  0]('A') with fromText[  0]('B') X
+-   Step #  2 compare word[  0]('A') with fromText[  1]('C') X
+-   Step #  3 compare word[  0]('A') with fromText[  2]('D') X
+-   Step #  4 compare word[  0]('A') with fromText[  3]('E') X
+
+
+Return first occurrence of A:
+- Searching
+-   ruler:     0         1 
+-              012345678901
+-   fromText: "BABABCDEFG A"
+-   word:     "A"
+-   partial match table: [0]
+-   expect pos:  "1"
+-   actual pos:  "1"
+-   fromText indices history: [0,1]
+-   Step #  1 compare word[  0]('A') with fromText[  0]('B') X
+-   Step #  2 compare word[  0]('A') with fromText[  1]('A') 
+
+
+Return first occurrence of AB:
+- Searching
+-   ruler:     0         1 
+-              012345678901
+-   fromText: "ABABABAB AB "
+-   word:     "AB"
+-   partial match table: [0,0]
+-   expect pos:  "0"
+-   actual pos:  "0"
+-   fromText indices history: [0]
+-   Step #  1 compare word[  0]('A') with fromText[  0]('A') 
+-   Step #  2 compare word[  1]('B') with fromText[  1]('B') 
+
+
+Found ABCDABD at last:
+- Searching
+-   ruler:     0         1         2  
+-              01234567890123456789012
+-   fromText: "ABC ABCDAB ABCDABCDABDE"
+-   word:     "ABCDABD"
+-   partial match table: [0,0,0,0,1,2,0]
+-   expect pos:  "15"
+-   actual pos:  "15"
+-   fromText indices history: [0,3,4,8,10,11,15]
+-   Step #  1 compare word[  0]('A') with fromText[  0]('A') 
+-   Step #  2 compare word[  1]('B') with fromText[  1]('B') 
+-   Step #  3 compare word[  2]('C') with fromText[  2]('C') 
+-   Step #  4 compare word[  3]('D') with fromText[  3](' ') X
+-   Step #  5 compare word[  0]('A') with fromText[  3](' ') X
+-   Step #  6 compare word[  0]('A') with fromText[  4]('A') 
+-   Step #  7 compare word[  1]('B') with fromText[  5]('B') 
+-   Step #  8 compare word[  2]('C') with fromText[  6]('C') 
+-   Step #  9 compare word[  3]('D') with fromText[  7]('D') 
+-   Step # 10 compare word[  4]('A') with fromText[  8]('A') 
+-   Step # 11 compare word[  5]('B') with fromText[  9]('B') 
+-   Step # 12 compare word[  6]('D') with fromText[ 10](' ') X
+-   Step # 13 compare word[  2]('C') with fromText[ 10](' ') X
+-   Step # 14 compare word[  0]('A') with fromText[ 10](' ') X
+-   Step # 15 compare word[  0]('A') with fromText[ 11]('A') 
+-   Step # 16 compare word[  1]('B') with fromText[ 12]('B') 
+-   Step # 17 compare word[  2]('C') with fromText[ 13]('C') 
+-   Step # 18 compare word[  3]('D') with fromText[ 14]('D') 
+-   Step # 19 compare word[  4]('A') with fromText[ 15]('A') 
+-   Step # 20 compare word[  5]('B') with fromText[ 16]('B') 
+-   Step # 21 compare word[  6]('D') with fromText[ 17]('C') X
+-   Step # 22 compare word[  2]('C') with fromText[ 17]('C') 
+-   Step # 23 compare word[  3]('D') with fromText[ 18]('D') 
+-   Step # 24 compare word[  4]('A') with fromText[ 19]('A') 
+-   Step # 25 compare word[  5]('B') with fromText[ 20]('B') 
+-   Step # 26 compare word[  6]('D') with fromText[ 21]('D') 
+
+
+Found BAAAAAAAAA at last:
+- Searching
+-   ruler:     0         1         2         3         4         5         6   
+-              0123456789012345678901234567890123456789012345678901234567890123
+-   fromText: "BAAAAAAAABAAAAAAAABAAAAAAAABAAAAAAAABAAAAAAAABAAAAAAAABAAAAAAAAA"
+-   word:     "BAAAAAAAAA"
+-   partial match table: [0,0,0,0,0,0,0,0,0,0]
+-   expect pos:  "54"
+-   actual pos:  "54"
+-   fromText indices history: [0,9,18,27,36,45,54]
+-   Step #  1 compare word[  0]('B') with fromText[  0]('B') 
+-   Step #  2 compare word[  1]('A') with fromText[  1]('A') 
+-   Step #  3 compare word[  2]('A') with fromText[  2]('A') 
+-   Step #  4 compare word[  3]('A') with fromText[  3]('A') 
+-   Step #  5 compare word[  4]('A') with fromText[  4]('A') 
+-   Step #  6 compare word[  5]('A') with fromText[  5]('A') 
+-   Step #  7 compare word[  6]('A') with fromText[  6]('A') 
+-   Step #  8 compare word[  7]('A') with fromText[  7]('A') 
+-   Step #  9 compare word[  8]('A') with fromText[  8]('A') 
+-   Step # 10 compare word[  9]('A') with fromText[  9]('B') X
+-   Step # 11 compare word[  0]('B') with fromText[  9]('B') 
+-   Step # 12 compare word[  1]('A') with fromText[ 10]('A') 
+-   Step # 13 compare word[  2]('A') with fromText[ 11]('A') 
+-   Step # 14 compare word[  3]('A') with fromText[ 12]('A') 
+-   Step # 15 compare word[  4]('A') with fromText[ 13]('A') 
+-   Step # 16 compare word[  5]('A') with fromText[ 14]('A') 
+-   Step # 17 compare word[  6]('A') with fromText[ 15]('A') 
+-   Step # 18 compare word[  7]('A') with fromText[ 16]('A') 
+-   Step # 19 compare word[  8]('A') with fromText[ 17]('A') 
+-   Step # 20 compare word[  9]('A') with fromText[ 18]('B') X
+-   Step # 21 compare word[  0]('B') with fromText[ 18]('B') 
+-   Step # 22 compare word[  1]('A') with fromText[ 19]('A') 
+-   Step # 23 compare word[  2]('A') with fromText[ 20]('A') 
+-   Step # 24 compare word[  3]('A') with fromText[ 21]('A') 
+-   Step # 25 compare word[  4]('A') with fromText[ 22]('A') 
+-   Step # 26 compare word[  5]('A') with fromText[ 23]('A') 
+-   Step # 27 compare word[  6]('A') with fromText[ 24]('A') 
+-   Step # 28 compare word[  7]('A') with fromText[ 25]('A') 
+-   Step # 29 compare word[  8]('A') with fromText[ 26]('A') 
+-   Step # 30 compare word[  9]('A') with fromText[ 27]('B') X
+-   Step # 31 compare word[  0]('B') with fromText[ 27]('B') 
+-   Step # 32 compare word[  1]('A') with fromText[ 28]('A') 
+-   Step # 33 compare word[  2]('A') with fromText[ 29]('A') 
+-   Step # 34 compare word[  3]('A') with fromText[ 30]('A') 
+-   Step # 35 compare word[  4]('A') with fromText[ 31]('A') 
+-   Step # 36 compare word[  5]('A') with fromText[ 32]('A') 
+-   Step # 37 compare word[  6]('A') with fromText[ 33]('A') 
+-   Step # 38 compare word[  7]('A') with fromText[ 34]('A') 
+-   Step # 39 compare word[  8]('A') with fromText[ 35]('A') 
+-   Step # 40 compare word[  9]('A') with fromText[ 36]('B') X
+-   Step # 41 compare word[  0]('B') with fromText[ 36]('B') 
+-   Step # 42 compare word[  1]('A') with fromText[ 37]('A') 
+-   Step # 43 compare word[  2]('A') with fromText[ 38]('A') 
+-   Step # 44 compare word[  3]('A') with fromText[ 39]('A') 
+-   Step # 45 compare word[  4]('A') with fromText[ 40]('A') 
+-   Step # 46 compare word[  5]('A') with fromText[ 41]('A') 
+-   Step # 47 compare word[  6]('A') with fromText[ 42]('A') 
+-   Step # 48 compare word[  7]('A') with fromText[ 43]('A') 
+-   Step # 49 compare word[  8]('A') with fromText[ 44]('A') 
+-   Step # 50 compare word[  9]('A') with fromText[ 45]('B') X
+-   Step # 51 compare word[  0]('B') with fromText[ 45]('B') 
+-   Step # 52 compare word[  1]('A') with fromText[ 46]('A') 
+-   Step # 53 compare word[  2]('A') with fromText[ 47]('A') 
+-   Step # 54 compare word[  3]('A') with fromText[ 48]('A') 
+-   Step # 55 compare word[  4]('A') with fromText[ 49]('A') 
+-   Step # 56 compare word[  5]('A') with fromText[ 50]('A') 
+-   Step # 57 compare word[  6]('A') with fromText[ 51]('A') 
+-   Step # 58 compare word[  7]('A') with fromText[ 52]('A') 
+-   Step # 59 compare word[  8]('A') with fromText[ 53]('A') 
+-   Step # 60 compare word[  9]('A') with fromText[ 54]('B') X
+-   Step # 61 compare word[  0]('B') with fromText[ 54]('B') 
+-   Step # 62 compare word[  1]('A') with fromText[ 55]('A') 
+-   Step # 63 compare word[  2]('A') with fromText[ 56]('A') 
+-   Step # 64 compare word[  3]('A') with fromText[ 57]('A') 
+-   Step # 65 compare word[  4]('A') with fromText[ 58]('A') 
+-   Step # 66 compare word[  5]('A') with fromText[ 59]('A') 
+-   Step # 67 compare word[  6]('A') with fromText[ 60]('A') 
+-   Step # 68 compare word[  7]('A') with fromText[ 61]('A') 
+-   Step # 69 compare word[  8]('A') with fromText[ 62]('A') 
+-   Step # 70 compare word[  9]('A') with fromText[ 63]('A') 
+
+
+Found AAAAAAAAAB at last:
+- Searching
+-   ruler:     0         1         2         3         4         5         
+-              012345678901234567890123456789012345678901234567890123456789
+-   fromText: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB"
+-   word:     "AAAAAAAAAB"
+-   partial match table: [0,1,2,3,4,5,6,7,8,0]
+-   expect pos:  "50"
+-   actual pos:  "50"
+-   fromText indices history: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50]
+-   Step #  1 compare word[  0]('A') with fromText[  0]('A') 
+-   Step #  2 compare word[  1]('A') with fromText[  1]('A') 
+-   Step #  3 compare word[  2]('A') with fromText[  2]('A') 
+-   Step #  4 compare word[  3]('A') with fromText[  3]('A') 
+-   Step #  5 compare word[  4]('A') with fromText[  4]('A') 
+-   Step #  6 compare word[  5]('A') with fromText[  5]('A') 
+-   Step #  7 compare word[  6]('A') with fromText[  6]('A') 
+-   Step #  8 compare word[  7]('A') with fromText[  7]('A') 
+-   Step #  9 compare word[  8]('A') with fromText[  8]('A') 
+-   Step # 10 compare word[  9]('B') with fromText[  9]('A') X
+-   Step # 11 compare word[  8]('A') with fromText[  9]('A') 
+-   Step # 12 compare word[  9]('B') with fromText[ 10]('A') X
+-   Step # 13 compare word[  8]('A') with fromText[ 10]('A') 
+-   Step # 14 compare word[  9]('B') with fromText[ 11]('A') X
+-   Step # 15 compare word[  8]('A') with fromText[ 11]('A') 
+-   Step # 16 compare word[  9]('B') with fromText[ 12]('A') X
+-   Step # 17 compare word[  8]('A') with fromText[ 12]('A') 
+-   Step # 18 compare word[  9]('B') with fromText[ 13]('A') X
+-   Step # 19 compare word[  8]('A') with fromText[ 13]('A') 
+-   Step # 20 compare word[  9]('B') with fromText[ 14]('A') X
+-   Step # 21 compare word[  8]('A') with fromText[ 14]('A') 
+-   Step # 22 compare word[  9]('B') with fromText[ 15]('A') X
+-   Step # 23 compare word[  8]('A') with fromText[ 15]('A') 
+-   Step # 24 compare word[  9]('B') with fromText[ 16]('A') X
+-   Step # 25 compare word[  8]('A') with fromText[ 16]('A') 
+-   Step # 26 compare word[  9]('B') with fromText[ 17]('A') X
+-   Step # 27 compare word[  8]('A') with fromText[ 17]('A') 
+-   Step # 28 compare word[  9]('B') with fromText[ 18]('A') X
+-   Step # 29 compare word[  8]('A') with fromText[ 18]('A') 
+-   Step # 30 compare word[  9]('B') with fromText[ 19]('A') X
+-   Step # 31 compare word[  8]('A') with fromText[ 19]('A') 
+-   Step # 32 compare word[  9]('B') with fromText[ 20]('A') X
+-   Step # 33 compare word[  8]('A') with fromText[ 20]('A') 
+-   Step # 34 compare word[  9]('B') with fromText[ 21]('A') X
+-   Step # 35 compare word[  8]('A') with fromText[ 21]('A') 
+-   Step # 36 compare word[  9]('B') with fromText[ 22]('A') X
+-   Step # 37 compare word[  8]('A') with fromText[ 22]('A') 
+-   Step # 38 compare word[  9]('B') with fromText[ 23]('A') X
+-   Step # 39 compare word[  8]('A') with fromText[ 23]('A') 
+-   Step # 40 compare word[  9]('B') with fromText[ 24]('A') X
+-   Step # 41 compare word[  8]('A') with fromText[ 24]('A') 
+-   Step # 42 compare word[  9]('B') with fromText[ 25]('A') X
+-   Step # 43 compare word[  8]('A') with fromText[ 25]('A') 
+-   Step # 44 compare word[  9]('B') with fromText[ 26]('A') X
+-   Step # 45 compare word[  8]('A') with fromText[ 26]('A') 
+-   Step # 46 compare word[  9]('B') with fromText[ 27]('A') X
+-   Step # 47 compare word[  8]('A') with fromText[ 27]('A') 
+-   Step # 48 compare word[  9]('B') with fromText[ 28]('A') X
+-   Step # 49 compare word[  8]('A') with fromText[ 28]('A') 
+-   Step # 50 compare word[  9]('B') with fromText[ 29]('A') X
+-   Step # 51 compare word[  8]('A') with fromText[ 29]('A') 
+-   Step # 52 compare word[  9]('B') with fromText[ 30]('A') X
+-   Step # 53 compare word[  8]('A') with fromText[ 30]('A') 
+-   Step # 54 compare word[  9]('B') with fromText[ 31]('A') X
+-   Step # 55 compare word[  8]('A') with fromText[ 31]('A') 
+-   Step # 56 compare word[  9]('B') with fromText[ 32]('A') X
+-   Step # 57 compare word[  8]('A') with fromText[ 32]('A') 
+-   Step # 58 compare word[  9]('B') with fromText[ 33]('A') X
+-   Step # 59 compare word[  8]('A') with fromText[ 33]('A') 
+-   Step # 60 compare word[  9]('B') with fromText[ 34]('A') X
+-   Step # 61 compare word[  8]('A') with fromText[ 34]('A') 
+-   Step # 62 compare word[  9]('B') with fromText[ 35]('A') X
+-   Step # 63 compare word[  8]('A') with fromText[ 35]('A') 
+-   Step # 64 compare word[  9]('B') with fromText[ 36]('A') X
+-   Step # 65 compare word[  8]('A') with fromText[ 36]('A') 
+-   Step # 66 compare word[  9]('B') with fromText[ 37]('A') X
+-   Step # 67 compare word[  8]('A') with fromText[ 37]('A') 
+-   Step # 68 compare word[  9]('B') with fromText[ 38]('A') X
+-   Step # 69 compare word[  8]('A') with fromText[ 38]('A') 
+-   Step # 70 compare word[  9]('B') with fromText[ 39]('A') X
+-   Step # 71 compare word[  8]('A') with fromText[ 39]('A') 
+-   Step # 72 compare word[  9]('B') with fromText[ 40]('A') X
+-   Step # 73 compare word[  8]('A') with fromText[ 40]('A') 
+-   Step # 74 compare word[  9]('B') with fromText[ 41]('A') X
+-   Step # 75 compare word[  8]('A') with fromText[ 41]('A') 
+-   Step # 76 compare word[  9]('B') with fromText[ 42]('A') X
+-   Step # 77 compare word[  8]('A') with fromText[ 42]('A') 
+-   Step # 78 compare word[  9]('B') with fromText[ 43]('A') X
+-   Step # 79 compare word[  8]('A') with fromText[ 43]('A') 
+-   Step # 80 compare word[  9]('B') with fromText[ 44]('A') X
+-   Step # 81 compare word[  8]('A') with fromText[ 44]('A') 
+-   Step # 82 compare word[  9]('B') with fromText[ 45]('A') X
+-   Step # 83 compare word[  8]('A') with fromText[ 45]('A') 
+-   Step # 84 compare word[  9]('B') with fromText[ 46]('A') X
+-   Step # 85 compare word[  8]('A') with fromText[ 46]('A') 
+-   Step # 86 compare word[  9]('B') with fromText[ 47]('A') X
+-   Step # 87 compare word[  8]('A') with fromText[ 47]('A') 
+-   Step # 88 compare word[  9]('B') with fromText[ 48]('A') X
+-   Step # 89 compare word[  8]('A') with fromText[ 48]('A') 
+-   Step # 90 compare word[  9]('B') with fromText[ 49]('A') X
+-   Step # 91 compare word[  8]('A') with fromText[ 49]('A') 
+-   Step # 92 compare word[  9]('B') with fromText[ 50]('A') X
+-   Step # 93 compare word[  8]('A') with fromText[ 50]('A') 
+-   Step # 94 compare word[  9]('B') with fromText[ 51]('A') X
+-   Step # 95 compare word[  8]('A') with fromText[ 51]('A') 
+-   Step # 96 compare word[  9]('B') with fromText[ 52]('A') X
+-   Step # 97 compare word[  8]('A') with fromText[ 52]('A') 
+-   Step # 98 compare word[  9]('B') with fromText[ 53]('A') X
+-   Step # 99 compare word[  8]('A') with fromText[ 53]('A') 
+-   Step #100 compare word[  9]('B') with fromText[ 54]('A') X
+-   Step #101 compare word[  8]('A') with fromText[ 54]('A') 
+-   Step #102 compare word[  9]('B') with fromText[ 55]('A') X
+-   Step #103 compare word[  8]('A') with fromText[ 55]('A') 
+-   Step #104 compare word[  9]('B') with fromText[ 56]('A') X
+-   Step #105 compare word[  8]('A') with fromText[ 56]('A') 
+-   Step #106 compare word[  9]('B') with fromText[ 57]('A') X
+-   Step #107 compare word[  8]('A') with fromText[ 57]('A') 
+-   Step #108 compare word[  9]('B') with fromText[ 58]('A') X
+-   Step #109 compare word[  8]('A') with fromText[ 58]('A') 
+-   Step #110 compare word[  9]('B') with fromText[ 59]('B') 
+
+

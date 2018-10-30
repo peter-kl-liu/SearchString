@@ -1,0 +1,37 @@
+Test PartialMatchTable:
+#  1:  Web example                                        : OK  
+- #Success: 1
+- #Fail:    0
+
+Test StringSearcher_Simple:
+#  1:  When word is empty                                 : OK   - Time is     0.001200 ms #Compare =   0
+#  2:  When from is empty                                 : OK   - Time is     0.004300 ms #Compare =   0
+#  3:  When both are empty                                : OK   - Time is     0.000600 ms #Compare =   0
+#  4:  Found when char appear at all positions            : OK   - Time is     0.001300 ms #Compare =   1
+#  5:  Found when char appear at middle                   : OK   - Time is     0.001300 ms #Compare =   2
+#  6:  Found when char appear at end                      : OK   - Time is     0.001600 ms #Compare =   4
+#  7:  Single char not found                              : OK   - Time is     0.001900 ms #Compare =   4
+#  8:  Return first occurrence of A                       : OK   - Time is     0.000900 ms #Compare =   2
+#  9:  Return first occurrence of AB                      : OK   - Time is     0.001200 ms #Compare =   2
+# 10:  Found ABCDABD at last                              : OK   - Time is     0.006300 ms #Compare =  39
+# 11:  Found BAAAAAAAAA at last                           : OK   - Time is   161.560000 ms #Compare = 118 for 10000 iterations
+# 12:  Found AAAAAAAAAB at last                           : OK   - Time is   589.124000 ms #Compare = 510 for 10000 iterations
+- #Success: 12
+- #Fail:    0
+
+Test StringSearcher_KMP:
+#  1:  When word is empty                                 : OK   - Time is     0.001700 ms #Compare =   0
+#  2:  When from is empty                                 : OK   - Time is     0.000900 ms #Compare =   0
+#  3:  When both are empty                                : OK   - Time is     0.000300 ms #Compare =   0
+#  4:  Found when char appear at all positions            : OK   - Time is     0.002500 ms #Compare =   1
+#  5:  Found when char appear at middle                   : OK   - Time is     0.001800 ms #Compare =   2
+#  6:  Found when char appear at end                      : OK   - Time is     0.002200 ms #Compare =   4
+#  7:  Single char not found                              : OK   - Time is     0.002400 ms #Compare =   4
+#  8:  Return first occurrence of A                       : OK   - Time is     0.001900 ms #Compare =   2
+#  9:  Return first occurrence of AB                      : OK   - Time is     0.001800 ms #Compare =   2
+# 10:  Found ABCDABD at last                              : OK   - Time is     0.008700 ms #Compare =  26
+# 11:  Found BAAAAAAAAA at last                           : OK   - Time is   120.458300 ms #Compare =  70 for 10000 iterations
+# 12:  Found AAAAAAAAAB at last                           : OK   - Time is   167.927300 ms #Compare = 110 for 10000 iterations
+- #Success: 12
+- #Fail:    0
+

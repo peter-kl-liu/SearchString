@@ -1,0 +1,1 @@
+g++ -DMONITOR -o SearchString.exe main.cpp StringSearcher_KMP.cpp StringSearcher_Simple.cpp PartialMatchTable_TestCase.cpp StringSearcher_TestCase.cpp
